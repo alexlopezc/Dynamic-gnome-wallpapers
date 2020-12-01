@@ -1,16 +1,17 @@
 #! /bin/bash
 
-echo "Adding $1 to wallpapers ..."
-echo "Starting download ..."
+echo "Select one of the following wallpapers:"
+for wallpaper in `ls -l | grep "^d" | cut -d " " -f 10`
+do
+    echo " - ${wallpaper}"
+done
 
-svn checkout https://github.com/b1izzard-34/Dynamic-gnome-wallpapers/trunk/$1
+read -p "Type wallpaper name:" selected_wallpaper
 
-cd $1
-sudo mkdir /usr/share/backgrounds/gnome/$1-timed
-sudo cp $1*.jpeg /usr/share/backgrounds/gnome/$1-timed
-sudo cp $1-timed.xml /usr/share/backgrounds/gnome
-sudo cp $1.xml /usr/share/gnome-background-properties
-echo "Added $1 dynamic wallpaper!"
-
-echo "Cleaning up ..."
-rm -rf $1
+echo "Installing wallpaper: ${selected_wallpaper}"
+cd $selected_wallpaper
+sudo mkdir -p /usr/share/backgrounds/gnome/$selected_wallpaper-timed
+sudo cp $selected_wallpaper*.jpeg /usr/share/backgrounds/gnome/$selected_wallpaper-timed
+sudo cp $selected_wallpaper-timed.xml /usr/share/backgrounds/gnome
+sudo cp $selected_wallpaper.xml /usr/share/gnome-background-properties
+echo "Added $selected_wallpaper dynamic wallpaper!"
