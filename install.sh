@@ -1,12 +1,12 @@
 #! /bin/bash
 
 echo "Select one of the following wallpapers:"
-for wallpaper in `ls -l | grep "^d" | cut -d " " -f 10`
+for wallpaper in `ls -d */ | cut -f1 -d'/'`
 do
     echo " - ${wallpaper}"
 done
 
-read -p "Type wallpaper name:" selected_wallpaper
+read -p "Type wallpaper name: " selected_wallpaper
 
 echo "Installing wallpaper: ${selected_wallpaper}"
 cd $selected_wallpaper
